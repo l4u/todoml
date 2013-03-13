@@ -28,10 +28,16 @@ describe Todoml do
 
     it "should be able to regroup CURRENT and TODO" do
       @tasks.regroup_current_and_todo!
-      @data['TODO'] = @tasks.simple_task("TODO")
-      @data['CURRENT'] = @tasks.simple_task("CURRENT")
+      @data['TODO'] = @tasks.format_task("TODO")
+      @data['CURRENT'] = @tasks.format_task("CURRENT")
       @data.to_yaml.should eq File.read './spec/data/case1_results.yaml'
     end
 
+    it "should be able to regroup CURRENT and TODO with foldmarks" do
+      @tasks.regroup_current_and_todo!
+      @data['TODO'] = @tasks.format_tasks_with_foldmarks("TODO")
+      @data['CURRENT'] = @tasks.format_tasks_with_foldmarks("CURRENT")
+      @data.to_yaml.should eq File.read './spec/data/case1_results_foldmark.yaml'
+    end
   end
 end

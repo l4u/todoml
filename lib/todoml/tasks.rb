@@ -7,7 +7,10 @@ module Todoml
       self.serialized = {}
       ['TODO', 'CURRENT'].each do |group|
         self.serialized[group] = data[group].flatten(1)
-        self.serialized[group].reject! { |task_raw| task_raw.nil? }
+        self.serialized[group].reject! { |task_raw| 
+          task_raw[0] == '(' ||
+          task_raw[0] == ')'
+        }
         self.serialized[group].map! { |task_raw| 
           Todoml::Task.new(task_raw)
         }
@@ -45,10 +48,28 @@ module Todoml
       end
     end
 
-    def simple_task(key)
+    def format_task(key)
       self.serialized[key].map { |group|
         group.map { |task|
           task.to_s
+        }
+      }
+    end
+
+    def format_tasks_with_foldmarks(key)
+      @fold_mark_start = Todoml::Task.new("- {")
+      @fold_mark_end = Todoml::Task.new("- {")
+      self.serialized[key].each { |group|
+        group.unshift  "("
+        group << ")"
+      }
+      self.serialized[key].map { |group|
+        group.map { |task|
+          if task.is_a? Task
+            task.to_s
+          else 
+            task
+          end
         }
       }
     end
