@@ -3,29 +3,17 @@ module Todoml
     attr_accessor :name, :point
 
     def initialize(task_raw)
-      if task_raw.is_a? String
-        @name = task_raw
-        @point = 1
-      elsif task_raw.is_a? Array and task_raw.length == 2 and
-        task_raw[0].is_a? String and task_raw[1].is_a? Numeric
-        @name = task_raw[0]
-        @point = task_raw[1]
-      else 
+      parts = task_raw.split '-', 2
+      if parts.length == 2
+        @point = parts[0].to_i
+        @name = parts[1].lstrip
+      else
         raise TypeError
       end
-
     end
 
-    def to_a
-      [name, point]
-    end
-
-    def to_yaml_simple
-      if name.empty?
-        ""
-      else
-        "[ #{name}, #{point} ]"
-      end
+    def to_s
+      "#{point} - #{name}"
     end
 
   end
