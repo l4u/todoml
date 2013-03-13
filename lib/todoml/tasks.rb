@@ -1,8 +1,8 @@
 module Todoml
   class Tasks < Hash
-
+    attr_accessor :other_yaml
     def to_yaml_simple
-      "vim: fdm=indent\nvelocity: 5\n" +
+      other_yaml.to_yaml + 
       "CURRENT:\n" +
         self['CURRENT'].map { |task| "    - " + task.to_yaml_simple}.join("\n") +
         "\n" +

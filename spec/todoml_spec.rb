@@ -46,6 +46,13 @@ describe Todoml do
 
     it "should parse todo tasks and ignore spacers" do
       tasks = Todoml::Tasks.new 
+
+      other_yaml = @data.clone
+      ['TODO', 'CURRENT', 'FINISHED'].each do |group|
+        other_yaml.reject!{ |key| key == group }
+      end
+      tasks.other_yaml = other_yaml
+
       ['TODO', 'CURRENT', 'FINISHED'].each do |group|
         tasks[group] = @data[group]
         tasks[group].reject! { |task_raw| task_raw.nil? }
