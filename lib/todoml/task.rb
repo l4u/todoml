@@ -15,5 +15,13 @@ module Todoml
       end
 
     end
+
+    def to_a
+      [name, point]
+    end
+
+    def to_yaml_simple
+      "[ #{name}, #{point} ]"
+    end
   end
 end

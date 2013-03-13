@@ -44,18 +44,23 @@ describe Todoml do
       @data = YAML.load_file "./spec/data/case1.yaml"
     end
 
-    it "should parse unfinished tasks and convert them to a list of Tasks" do
-      unfinished_tasks = @data['CURRENT'] + @data['TODO']
-      unfinished_tasks.reject! { |task_raw| task_raw.nil? }
-      unfinished_tasks.map! { |task_raw| 
-        Todoml::Task.new(task_raw)
-      }
+    it "should parse todo tasks and ignore spacers" do
+      tasks = Todoml::Tasks.new 
+      ['TODO', 'CURRENT', 'FINISHED'].each do |group|
+        tasks[group] = @data[group]
+        tasks[group].reject! { |task_raw| task_raw.nil? }
+        tasks[group].map! { |task_raw| 
+          Todoml::Task.new(task_raw)
+        }
+      end
+      tasks['CURRENT'].count.should eq 1
+      tasks['TODO'].count.should eq 10
 
-      unfinished_tasks.count.should eq 11
+      task = tasks['TODO'].first
+      task.name.should eq "User can see the updated tasks grouped by interations"
+      task.point.should eq 1
 
-      task = unfinished_tasks.first
-      task.name.should eq "User can read learn you some erlang"
-      task.point.should eq 3
+      tasks.to_yaml_simple.should eq File.read './spec/data/case1_removed_spacers.yaml'
     end
   end
 end
