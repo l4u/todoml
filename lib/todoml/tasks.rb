@@ -26,23 +26,19 @@ module Todoml
 
       current_group = 'CURRENT'
       velocity_left = @velocity
-      require_spacer = false
       count = 0
       unfinished_tasks.each_with_index do |task, index|
         velocity_left -= task.point
-        if velocity_left >= 0
-          require_spacer = false
-        else
+        if velocity_left < 0
           velocity_left = @velocity - task.point
           if current_group != 'TODO'
             current_group = 'TODO' 
             require_spacer = false
             count = 0
           else
-            require_spacer = true
+            count += 1
           end
         end
-        count += 1 if require_spacer
         @tasks[current_group][count] ||= []
         @tasks[current_group][count] << task
       end
