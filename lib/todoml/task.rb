@@ -21,7 +21,12 @@ module Todoml
     end
 
     def to_yaml_simple
-      "[ #{name}, #{point} ]"
+      if name.empty?
+        ""
+      else
+        "[ #{name}, #{point} ]"
+      end
     end
+
   end
 end

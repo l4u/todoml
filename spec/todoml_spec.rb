@@ -41,33 +41,39 @@ describe Todoml do
 
   describe "case 1" do
     before :each do
-      @data = YAML.load_file "./spec/data/case1.yaml"
+      data = YAML.load_file "./spec/data/case1.yaml"
+      @tasks = Todoml::Tasks.new 
+      @tasks.load data
     end
 
     it "should parse todo tasks and ignore spacers" do
-      tasks = Todoml::Tasks.new 
+      @tasks['CURRENT'].count.should eq 1
+      @tasks['TODO'].count.should eq 10
 
-      other_yaml = @data.clone
-      ['TODO', 'CURRENT', 'FINISHED'].each do |group|
-        other_yaml.reject!{ |key| key == group }
-      end
-      tasks.other_yaml = other_yaml
-
-      ['TODO', 'CURRENT', 'FINISHED'].each do |group|
-        tasks[group] = @data[group]
-        tasks[group].reject! { |task_raw| task_raw.nil? }
-        tasks[group].map! { |task_raw| 
-          Todoml::Task.new(task_raw)
-        }
-      end
-      tasks['CURRENT'].count.should eq 1
-      tasks['TODO'].count.should eq 10
-
-      task = tasks['TODO'].first
+      task = @tasks['TODO'].first
       task.name.should eq "User can see the updated tasks grouped by interations"
       task.point.should eq 1
-
-      tasks.to_yaml_simple.should eq File.read './spec/data/case1_removed_spacers.yaml'
+      @tasks.to_yaml_simple.should eq File.read './spec/data/case1_removed_spacers.yaml'
     end
+
+    it "should be able to regroup CURRENT and TODO" do
+      @tasks.regroup_current_and_todo!
+      @tasks.to_yaml_simple.should eq File.read './spec/data/case1_results.yaml'
+    end
+
+  end
+
+  describe "case 2" do
+    before :each do
+      data = YAML.load_file "./spec/data/case2.yaml"
+      @tasks = Todoml::Tasks.new 
+      @tasks.load data
+    end
+
+    it "should be able to regroup CURRENT and TODO" do
+      @tasks.regroup_current_and_todo!
+      @tasks.to_yaml_simple.should eq File.read './spec/data/case2_results.yaml'
+    end
+
   end
 end
