@@ -31,8 +31,9 @@ describe Todoml do
     it "should retreve tasks" do
       @data['CURRENT'].count.should eq 1
       task = @data['CURRENT'].first
-      task[0].should eq "User can read learn you some erlang"
-      task[1].should eq 3
+      task = Todoml::Task.new({name: task[0], point: task[1]})
+      task.name.should eq "User can read learn you some erlang"
+      task.point.should eq 3
     end
   end
 end
