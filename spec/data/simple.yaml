@@ -1,11 +1,9 @@
-- vim:fdm=indent
-- velocity: 10
-- CURRENT:
+vim: fdm=indent
+velocity: 10
+CURRENT:
     - [ User can read learn you some erlang, 3 ]
-- TODO: 
-    - User can see the updated tasks grouped by interations
-    - [ User can assign different weights to tasks, 2 ]
-- FINISHED:
+TODO: 
+FINISHED:
     - [ User can optionally input weight, 1 ]
     - 
     - Empty rows should be treated as spacers
