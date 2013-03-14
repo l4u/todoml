@@ -1,5 +1,5 @@
 ---
-vim: fdm=marker fmr=(,)
+vim: fdm=marker fmr=(,) ft=todoml
 velocity: 5
 CURRENT:
 - - 3 - User can read learn you some erlang
