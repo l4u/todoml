@@ -7,11 +7,11 @@ module Todoml
       self.serialized = {}
       ['TODO', 'CURRENT'].each do |group|
         self.serialized[group] = data[group].flatten(1)
-        self.serialized[group].reject! { |task_raw| 
+        self.serialized[group].reject! { |task_raw|
           task_raw[0] == '(' ||
           task_raw[0] == ')'
         }
-        self.serialized[group].map! { |task_raw| 
+        self.serialized[group].map! { |task_raw|
           Todoml::Task.new(task_raw)
         }
       end
@@ -32,7 +32,7 @@ module Todoml
         if velocity_left < 0
           velocity_left = @velocity - task.point
           if current_group != 'TODO'
-            current_group = 'TODO' 
+            current_group = 'TODO'
             require_spacer = false
             count = 0
           else
@@ -63,7 +63,7 @@ module Todoml
         group.map { |task|
           if task.is_a? Task
             task.to_s
-          else 
+          else
             task
           end
         }

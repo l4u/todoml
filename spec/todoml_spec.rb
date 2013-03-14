@@ -13,7 +13,7 @@ describe Todoml do
   describe "case 1" do
     before :each do
       @data = YAML.load_file "./spec/data/case1.yaml"
-      @tasks = Todoml::Tasks.new 
+      @tasks = Todoml::Tasks.new
       @tasks.load @data
     end
 
