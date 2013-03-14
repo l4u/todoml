@@ -1,5 +1,7 @@
 require 'spec_helper'
 require 'yaml'
+require 'psych'
+
 describe Todoml do
   describe "task" do
     it "should be initialized with name and point" do
@@ -40,4 +42,20 @@ describe Todoml do
       @data.to_yaml.should eq File.read './spec/data/case1_results_foldmark.yaml'
     end
   end
+
+  describe "case 2" do
+    before :each do
+      @data = YAML.load_file "./spec/data/case2.yaml"
+      @tasks = Todoml::Tasks.new
+      @tasks.load @data
+    end
+
+    it "should be able to regroup CURRENT and TODO" do
+      @tasks.regroup_current_and_todo!
+      @data['TODO'] = @tasks.format_task("TODO")
+      @data['CURRENT'] = @tasks.format_task("CURRENT")
+      @data.to_yaml.should eq File.read './spec/data/case2_results.yaml'
+    end
+  end
+
 end

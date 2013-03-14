@@ -1,0 +1,22 @@
+---
+vim: fdm=marker fmr=(,) ft=todoml
+velocity: 8
+CURRENT:
+- - 3 - User can read learn you some erlang
+  - 1 - User can see the updated tasks grouped by interations
+  - 2 - User can assign different weights to tasks
+TODO:
+- - 3 - User story 1 @tag1
+  - 5 - User story 2 @tag1 @tag2
+- - 8 - User story 3 @tag2
+- - 6 - User story 4
+  - 1 - User story 5
+- - 4 - User story 6
+  - 3 - Story with the same title
+- - 3 - Story with the same title
+  - 5 - Story with the same title
+- - 3 - User can input some of the punuations! -- This's cool!
+  - 4 - User can input some of the unicode characters 中文
+FINISHED:
+- - 1 - User can fold tasks
+  - 1 - User can see sections in the original order
