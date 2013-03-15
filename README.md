@@ -2,6 +2,7 @@
 
 [![Gem Version](https://badge.fury.io/rb/todoml.png)](http://badge.fury.io/rb/todoml)
 [![Build Status](https://secure.travis-ci.org/l4u/todoml.png?branch=master)](http://travis-ci.org/l4u/todoml)
+[![Coverage Status](https://coveralls.io/repos/l4u/todoml/badge.png?branch=master)](https://coveralls.io/r/l4u/todoml)
 [![Code Climate](https://codeclimate.com/github/l4u/todoml.png)](https://codeclimate.com/github/l4u/todoml)
 [![Dependency Status](https://gemnasium.com/l4u/todoml.png)](https://gemnasium.com/l4u/todoml)
 
